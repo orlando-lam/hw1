@@ -103,7 +103,6 @@
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS casts;
 DROP TABLE IF EXISTS studios;
-DROP TABLE IF EXISTS actors;
 
 -- Create new tables, according to your domain model
 CREATE TABLE movies (
