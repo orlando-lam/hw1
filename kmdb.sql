@@ -128,13 +128,6 @@ CREATE TABLE studios (
   studio TEXT
 );
 
-CREATE TABLE actors (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  actor_name TEXT,
-  movies_id INTEGER,
-  casts_id INTEGER
-);
-
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 INSERT INTO movies (
