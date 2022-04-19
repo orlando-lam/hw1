@@ -120,7 +120,7 @@ CREATE TABLE casts (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   actor_name TEXT,
   role TEXT,
-  movie_id INTEGER
+  movies_id INTEGER
 );
 
 CREATE TABLE studios (
@@ -179,7 +179,7 @@ VALUES (
 INSERT INTO casts (
   actor_name,
   role,
-  movie_id
+  movies_id
 )
 VALUES (
    'Christian Bale',
@@ -190,7 +190,29 @@ VALUES (
 INSERT INTO casts (
   actor_name,
   role,
-  movie_id
+  movies_id
+)
+VALUES (
+   'Christian Bale',
+   'Bryce Wayne',
+   '2'
+);
+
+INSERT INTO casts (
+  actor_name,
+  role,
+  movies_id
+)
+VALUES (
+   'Christian Bale',
+   'Bryce Wayne',
+   '3'
+);
+
+INSERT INTO casts (
+  actor_name,
+  role,
+  movies_id
 )
 VALUES (
    'Michael Caine',
@@ -201,7 +223,18 @@ VALUES (
 INSERT INTO casts (
   actor_name,
   role,
-  movie_id
+  movies_id
+)
+VALUES (
+   'Michael Caine',
+   'Alfred',
+   '2'
+);
+
+INSERT INTO casts (
+  actor_name,
+  role,
+  movies_id
 )
 VALUES (
    'Liam Neeson',
@@ -212,7 +245,7 @@ VALUES (
 INSERT INTO casts (
   actor_name,
   role,
-  movie_id
+  movies_id
 )
 VALUES (
    'Katie Holmes',
@@ -223,7 +256,7 @@ VALUES (
 INSERT INTO casts (
   actor_name,
   role,
-  movie_id
+  movies_id
 )
 VALUES (
    'Gary Oldman',
@@ -234,7 +267,18 @@ VALUES (
 INSERT INTO casts (
   actor_name,
   role,
-  movie_id
+  movies_id
+)
+VALUES (
+   'Gary Oldman',
+   'Commissioner Gordon',
+   '3'
+);
+
+INSERT INTO casts (
+  actor_name,
+  role,
+  movies_id
 )
 VALUES (
    'Heath Ledger',
@@ -245,7 +289,7 @@ VALUES (
 INSERT INTO casts (
   actor_name,
   role,
-  movie_id
+  movies_id
 )
 VALUES (
    'Aaron Eckhart',
@@ -256,7 +300,7 @@ VALUES (
 INSERT INTO casts (
   actor_name,
   role,
-  movie_id
+  movies_id
 )
 VALUES (
    'Maggie Gyllenhaal',
@@ -267,7 +311,7 @@ VALUES (
 INSERT INTO casts (
   actor_name,
   role,
-  movie_id
+  movies_id
 )
 VALUES (
    'Tom Hardy',
@@ -278,7 +322,7 @@ VALUES (
 INSERT INTO casts (
   actor_name,
   role,
-  movie_id
+  movies_id
 )
 VALUES (
    'Joseph Gordon-Levitt',
@@ -289,7 +333,7 @@ VALUES (
 INSERT INTO casts (
   actor_name,
   role,
-  movie_id
+  movies_id
 )
 VALUES (
    'Anne Hathaway',
@@ -322,7 +366,7 @@ FROM movies
 
 
 -- The SQL statement for the cast output
-SELECT movies.title, actors.actor_name, casts.role
-FROM movies
-  INNER JOIN actors ON actors.id = movies.actors_id
-  INNER JOIN casts ON casts.id = movies.casts_id;
+SELECT movies.title, casts.actor_name, casts.role
+FROM casts
+  INNER JOIN movies ON movies.id = casts.movies_id
+  ORDER BY casts.movies_id;
