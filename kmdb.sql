@@ -111,7 +111,6 @@ CREATE TABLE movies (
   title TEXT,
   year TEXT,
   rating TEXT,
-  actors_id INTEGER,
   studios_id INTEGER
 );
 
@@ -167,19 +166,18 @@ INSERT INTO casts (
   actors_id
 )
 VALUES 
-  ('Bryce Wayne', 1, 1),
-  ('Bryce Wayne', 2, 1),
-  ('Bryce Wayne', 3, 1),
+  ('Bruce Wayne', 1, 1),
+  ('Bruce Wayne', 2, 1),
+  ('Bruce Wayne', 3, 1),
   ('Alfred', 1, 2),
   ('Alfred', 2, 2),
   ("Ra's Al Ghul", 1, 3),
-  ('Alfred', 2, 2),
   ('Rachel Dawes', 1, 4),
   ('Rachel Dawes', 2, 8),
   ('Commissioner Gordon', 1, 5),
   ('Commissioner Gordon', 3, 5),
-  ('Heath Ledger', 2, 6), 
-  ('Harvey Dent', 2, 6), 
+  ('Joker', 2, 6), 
+  ('Harvey Dent', 2, 7), 
   ('Bane', 3, 9),
   ('John Blake', 3, 10),
   ('Selina Kyle', 3, 11);
@@ -210,6 +208,7 @@ FROM movies
 
 -- The SQL statement for the cast output
 SELECT movies.title, actors.actor_name, casts.movie_role
-FROM actors
+FROM casts
   INNER JOIN movies ON movies.id = casts.movies_id
-  INNER JOIN casts ON casts.id = casts.actors_id;
+  INNER JOIN actors ON actors.id = casts.actors_id
+ORDER BY movies.id;
