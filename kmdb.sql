@@ -101,8 +101,9 @@
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
 DROP TABLE IF EXISTS movies;
-DROP TABLE IF EXISTS casts;
+DROP TABLE IF EXISTS actors;
 DROP TABLE IF EXISTS studios;
+DROP TABLE IF EXISTS casts;
 
 -- Create new tables, according to your domain model
 CREATE TABLE movies (
@@ -111,20 +112,24 @@ CREATE TABLE movies (
   year TEXT,
   rating TEXT,
   actors_id INTEGER,
-  casts_id INTEGER,
   studios_id INTEGER
 );
 
-CREATE TABLE casts (
+CREATE TABLE actors (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  actor_name TEXT,
-  role TEXT,
-  movies_id INTEGER
+  actor_name TEXT
 );
 
 CREATE TABLE studios (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   studio TEXT
+);
+
+CREATE TABLE casts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  movie_role TEXT, 
+  movies_id INTEGER,
+  actors_id INTEGER
 );
 
 -- Insert data into your database that reflects the sample data shown above
@@ -135,203 +140,49 @@ INSERT INTO movies (
   rating,
   studios_id
 )
-VALUES (
-   'Batman Begins',
-   '2005',
-   'PG-13',
-   '1' 
-);
+VALUES 
+  ('Batman Begins','2005','PG-13', 1),
+  ('The Dark Knight','2008','PG-13', 1),
+  ('The Dark Knight Rises','2012','PG-13', 1);
 
-INSERT INTO movies (
-  title,
-  year,
-  rating,
-  studios_id
+INSERT INTO actors (
+  actor_name
 )
-VALUES (
-   'The Dark Knight',
-   '2008',
-   'PG-13',
-   '1'
-);
-
-INSERT INTO movies (
-  title,
-  year,
-  rating,
-  studios_id
-)
-VALUES (
-   'The Dark Knight Rises',
-   '2012',
-   'PG-13',
-   '1'
-);
+VALUES 
+  ('Christian Bale'),
+  ('Michael Caine'),
+  ('Liam Neeson'),
+  ('Katie Holmes'),
+  ('Gary Oldman'),
+  ('Heath Ledger'),
+  ('Aaron Eckhart'),
+  ('Maggie Gyllenhaal'),
+  ('Tom Hardy'),
+  ('Joseph Gordon-Levitt'),
+  ('Anne Hathaway');
 
 INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
+  movie_role,
+  movies_id,
+  actors_id
 )
-VALUES (
-   'Christian Bale',
-   'Bryce Wayne',
-   '1'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Christian Bale',
-   'Bryce Wayne',
-   '2'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Christian Bale',
-   'Bryce Wayne',
-   '3'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Michael Caine',
-   'Alfred',
-   '1'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Michael Caine',
-   'Alfred',
-   '2'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Liam Neeson',
-   "Ra's Al Ghul",
-   '1'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Katie Holmes',
-   'Rachel Dawes',
-   '1'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Gary Oldman',
-   'Commissioner Gordon',
-   '1'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Gary Oldman',
-   'Commissioner Gordon',
-   '3'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Heath Ledger',
-   'Joker',
-   '2'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Aaron Eckhart',
-   'Harvey Dent',
-   '2'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Maggie Gyllenhaal',
-   'Rachel Dawes',
-   '2'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Tom Hardy',
-   'Bane',
-   '3'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Joseph Gordon-Levitt',
-   'John Blake',
-   '3'
-);
-
-INSERT INTO casts (
-  actor_name,
-  role,
-  movies_id
-)
-VALUES (
-   'Anne Hathaway',
-   'Selina Kyle',
-   '3'
-);
+VALUES 
+  ('Bryce Wayne', 1, 1),
+  ('Bryce Wayne', 2, 1),
+  ('Bryce Wayne', 3, 1),
+  ('Alfred', 1, 2),
+  ('Alfred', 2, 2),
+  ("Ra's Al Ghul", 1, 3),
+  ('Alfred', 2, 2),
+  ('Rachel Dawes', 1, 4),
+  ('Rachel Dawes', 2, 8),
+  ('Commissioner Gordon', 1, 5),
+  ('Commissioner Gordon', 3, 5),
+  ('Heath Ledger', 2, 6), 
+  ('Harvey Dent', 2, 6), 
+  ('Bane', 3, 9),
+  ('John Blake', 3, 10),
+  ('Selina Kyle', 3, 11);
 
 INSERT INTO studios (
   studio
@@ -358,7 +209,7 @@ FROM movies
 
 
 -- The SQL statement for the cast output
-SELECT movies.title, casts.actor_name, casts.role
-FROM casts
+SELECT movies.title, actors.actor_name, casts.movie_role
+FROM actors
   INNER JOIN movies ON movies.id = casts.movies_id
-  ORDER BY casts.movies_id;
+  INNER JOIN casts ON casts.id = casts.actors_id;
