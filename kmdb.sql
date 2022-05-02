@@ -103,7 +103,7 @@
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS actors;
 DROP TABLE IF EXISTS studios;
-DROP TABLE IF EXISTS casts;
+DROP TABLE IF EXISTS roles;
 
 -- Create new tables, according to your domain model
 CREATE TABLE movies (
@@ -124,7 +124,7 @@ CREATE TABLE studios (
   studio TEXT
 );
 
-CREATE TABLE casts (
+CREATE TABLE roles (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   movie_role TEXT, 
   movie_id INTEGER,
@@ -160,7 +160,7 @@ VALUES
   ('Joseph Gordon-Levitt'),
   ('Anne Hathaway');
 
-INSERT INTO casts (
+INSERT INTO roles (
   movie_role,
   movie_id,
   actor_id
@@ -207,8 +207,8 @@ FROM movies
 
 
 -- The SQL statement for the cast output
-SELECT movies.title, actors.actor_name, casts.movie_role
-FROM casts
-  INNER JOIN movies ON movies.id = casts.movie_id
-  INNER JOIN actors ON actors.id = casts.actor_id
+SELECT movies.title, actors.actor_name, roles.movie_role
+FROM roles
+  INNER JOIN movies ON movies.id = roles.movie_id
+  INNER JOIN actors ON actors.id = roles.actor_id
 ORDER BY movies.id;
