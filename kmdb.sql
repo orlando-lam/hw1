@@ -111,7 +111,7 @@ CREATE TABLE movies (
   title TEXT,
   year TEXT,
   rating TEXT,
-  studios_id INTEGER
+  studio_id INTEGER
 );
 
 CREATE TABLE actors (
@@ -127,8 +127,8 @@ CREATE TABLE studios (
 CREATE TABLE casts (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   movie_role TEXT, 
-  movies_id INTEGER,
-  actors_id INTEGER
+  movie_id INTEGER,
+  actor_id INTEGER
 );
 
 -- Insert data into your database that reflects the sample data shown above
@@ -137,7 +137,7 @@ INSERT INTO movies (
   title,
   year,
   rating,
-  studios_id
+  studio_id
 )
 VALUES 
   ('Batman Begins','2005','PG-13', 1),
@@ -162,8 +162,8 @@ VALUES
 
 INSERT INTO casts (
   movie_role,
-  movies_id,
-  actors_id
+  movie_id,
+  actor_id
 )
 VALUES 
   ('Bruce Wayne', 1, 1),
@@ -197,7 +197,7 @@ VALUES (
 -- The SQL statement for the movies output
 SELECT movies.title, movies.year, movies.rating, studios.studio
 FROM movies
-  INNER JOIN studios ON studios.id = movies.studios_id;
+  INNER JOIN studios ON studios.id = movies.studio_id;
 
 -- Prints a header for the cast output
 .print ""
@@ -209,6 +209,6 @@ FROM movies
 -- The SQL statement for the cast output
 SELECT movies.title, actors.actor_name, casts.movie_role
 FROM casts
-  INNER JOIN movies ON movies.id = casts.movies_id
-  INNER JOIN actors ON actors.id = casts.actors_id
+  INNER JOIN movies ON movies.id = casts.movie_id
+  INNER JOIN actors ON actors.id = casts.actor_id
 ORDER BY movies.id;
